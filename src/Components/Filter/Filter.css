@@ -1,0 +1,22 @@
+.info {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0 10px 0;
+}
+
+button {
+    font-size: 18px;
+    padding: 5px 10px;
+    color: rgb(108, 45, 255);
+    background: rgb(226, 215, 255);
+    border: 1px solid rgba(108, 45, 255, 0.8);
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.clicked {
+    color: white;
+    border: 1px solid rgb(108, 45, 255);
+    background: rgba(108, 45, 255, 0.4);
+}
