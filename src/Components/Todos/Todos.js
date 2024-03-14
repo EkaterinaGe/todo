@@ -2,7 +2,7 @@ import './Todos.css';
 import {useState} from 'react';
 
 export default function Todos({ todos, setTodos, filter, doneTodosCount, setDoneTodosCount, allTodosCount, setAllTodosCount }) {
-    const [isEdit, setIsEdit] = useState(false);
+    const [isEdit, setIsEdit] = useState("");
     const [value, setValue] = useState("");
 
     const toggleTodo = (id) => {
@@ -57,7 +57,7 @@ export default function Todos({ todos, setTodos, filter, doneTodosCount, setDone
                         className={todo.done ? "todo done" : "todo"} 
                         key={todo.id} 
                         >
-                            {isEdit ? (
+                            {isEdit === todo.id ? (
                                 <form 
                                     className="todo__text"
                                     onSubmit={e => {
@@ -74,19 +74,19 @@ export default function Todos({ todos, setTodos, filter, doneTodosCount, setDone
                                     />
                                     <div className="control">
                                         <img 
-                                        src="./Img/done.svg" 
+                                        src={process.env.PUBLIC_URL + "/Img/done.svg"}
                                         alt="Save" 
                                         onClick={e => {
-                                            setIsEdit(false);
                                             editTodo(todo.id, value);
+                                            setIsEdit("");
                                             setValue("");
                                         }}
                                         />
                                         <img 
-                                        src="./Img/cross.svg" 
+                                        src={process.env.PUBLIC_URL + "/Img/cross.svg"}
                                         alt="Cancel" 
                                         onClick={e => {
-                                            setIsEdit(false);
+                                            setIsEdit("");
                                             setValue("");
                                         }}
                                         />
@@ -104,14 +104,14 @@ export default function Todos({ todos, setTodos, filter, doneTodosCount, setDone
                                     </div>
                                     <div className="control">
                                         <img 
-                                        src="./Img/edit.svg" 
+                                        src={process.env.PUBLIC_URL + "/Img/edit.svg"}
                                         alt="Edit" 
                                         onClick={e => {
-                                            setIsEdit(true)
+                                            setIsEdit(todo.id)
                                         }}
                                         />
                                         <img 
-                                        src="./Img/delete.svg" 
+                                        src={process.env.PUBLIC_URL + "/Img/delete.svg"}
                                         alt="Delete" 
                                         onClick={e => {
                                             deleteTodo(todo.id)

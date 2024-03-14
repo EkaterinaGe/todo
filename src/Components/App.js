@@ -5,7 +5,7 @@ import Todos from "./Todos/Todos";
 import './App.css';
 
 export default function App() {
-  const localTodos = JSON.parse(localStorage.getItem('todos'));
+  const localTodos = JSON.parse(localStorage.getItem('todos')) || [];
   const completedTodos = localTodos.filter(todo => todo.done === true);
   const [todos, setTodos] = useState(localTodos || []);
   const [allTodosCount, setAllTodosCount] = useState(localTodos.length || 0);
