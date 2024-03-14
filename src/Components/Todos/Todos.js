@@ -61,7 +61,7 @@ export default function Todos({ todos, setTodos, filter, doneTodosCount, setDone
                                 <form 
                                     className="todo__text"
                                     onSubmit={e => {
-                                        setIsEdit(false);
+                                        setIsEdit("");
                                         editTodo(todo.id, value);
                                     }}
                                 >
