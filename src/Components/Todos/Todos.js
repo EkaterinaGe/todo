@@ -61,8 +61,10 @@ export default function Todos({ todos, setTodos, filter, doneTodosCount, setDone
                                 <form 
                                     className="todo__text"
                                     onSubmit={e => {
-                                        setIsEdit("");
-                                        editTodo(todo.id, value);
+                                        if (value === "") alert("Input text!");
+                                        value !== "" && editTodo(todo.id, value);
+                                        value !== "" && setIsEdit("");
+                                        value !== "" && setValue("");
                                     }}
                                 >
                                     <input 
@@ -77,9 +79,10 @@ export default function Todos({ todos, setTodos, filter, doneTodosCount, setDone
                                         src={process.env.PUBLIC_URL + "/Img/done.svg"}
                                         alt="Save" 
                                         onClick={e => {
-                                            editTodo(todo.id, value);
-                                            setIsEdit("");
-                                            setValue("");
+                                            if (value === "") alert("Input text!");
+                                            value !== "" && editTodo(todo.id, value);
+                                            value !== "" && setIsEdit("");
+                                            value !== "" && setValue("");
                                         }}
                                         />
                                         <img 
