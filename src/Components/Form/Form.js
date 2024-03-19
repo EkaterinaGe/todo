@@ -11,7 +11,7 @@ export default function Form({todos, setTodos, allTodosCount, setAllTodosCount})
 
     const addTodo = (value) => {
         if (value.trim()) {
-            setTodos([...todos, {id: uuidv4(), text: value, done: false}]);
+            setTodos([...todos, {id: uuidv4(), text: value, done: false, read: false}]);
             setAllTodosCount(allTodosCount + 1)
         } else {
             alert('Input text!')

@@ -51,7 +51,7 @@ export default function Todos({ todos, setTodos, filter, doneTodosCount, setDone
                 if (filter === "completed") return todo.done;
                 if (filter === "active") return !todo.done;
                 return true;
-            }).map(todo => {
+            }).reverse().map(todo => {
                 return (
                     <li 
                         className={todo.done ? "todo done" : "todo"} 
@@ -100,7 +100,10 @@ export default function Todos({ todos, setTodos, filter, doneTodosCount, setDone
                                     <div className="todo__text__check">
                                         <input 
                                             type="checkbox" 
-                                            onClick={() => toggleTodo(todo.id)}
+                                            onClick={() => {
+                                                if (todo.read) alert("Readonly!");
+                                                !todo.read && toggleTodo(todo.id);
+                                            }}
                                             checked={todo.done}
                                             />
                                         {todo.text}
@@ -110,14 +113,16 @@ export default function Todos({ todos, setTodos, filter, doneTodosCount, setDone
                                         src={process.env.PUBLIC_URL + "/Img/edit.svg"}
                                         alt="Edit" 
                                         onClick={e => {
-                                            setIsEdit(todo.id)
+                                            if (todo.read) alert("Readonly!");
+                                            !todo.read && setIsEdit(todo.id)
                                         }}
                                         />
                                         <img 
                                         src={process.env.PUBLIC_URL + "/Img/delete.svg"}
                                         alt="Delete" 
                                         onClick={e => {
-                                            deleteTodo(todo.id)
+                                            if (todo.read) alert("Readonly!");
+                                            !todo.read && deleteTodo(todo.id)
                                         }}
                                         />
                                     </div>
