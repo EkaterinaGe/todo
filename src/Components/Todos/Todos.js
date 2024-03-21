@@ -1,18 +1,13 @@
 import './Todos.css';
 import {useState} from 'react';
 
-export default function Todos({ todos, setTodos, filter, doneTodosCount, setDoneTodosCount, allTodosCount, setAllTodosCount }) {
-    const [isEdit, setIsEdit] = useState("");
+export default function Todos({ todos, setTodos, filter }) {
+    const [editedTodoId, setEditedTodoId] = useState("");
     const [value, setValue] = useState("");
 
     const toggleTodo = (id) => {
         setTodos(todos.map(todo => {
             if (todo.id !== id) return todo;
-            if (todo.done) {
-                setDoneTodosCount(doneTodosCount - 1)
-            } else {
-                setDoneTodosCount(doneTodosCount + 1)
-            }
             return {
                 ...todo,
                 done: !todo.done
@@ -23,25 +18,18 @@ export default function Todos({ todos, setTodos, filter, doneTodosCount, setDone
     const editTodo = (id, value) => {
         setTodos(todos.map(todo => {
             if (todo.id !== id) return todo;
-            if (todo.done) {
-                setDoneTodosCount(doneTodosCount - 1)
-            }
             return {
                 ...todo,
                 done: false,
                 text: value
             }
         }))
+        setValue("");
+        setEditedTodoId("");
     }
 
     const deleteTodo = (id) => {
         setTodos(todos.filter(todo => todo.id !== id));
-        todos.forEach(todo => {
-            if (todo.id === id) {
-                if (todo.done) setDoneTodosCount(doneTodosCount - 1)
-            }
-        })
-        setAllTodosCount(allTodosCount - 1);
     }
 
     return (
@@ -57,14 +45,15 @@ export default function Todos({ todos, setTodos, filter, doneTodosCount, setDone
                         className={todo.done ? "todo done" : "todo"} 
                         key={todo.id} 
                         >
-                            {isEdit === todo.id ? (
+                            {editedTodoId === todo.id ? (
                                 <form 
                                     className="todo__text"
                                     onSubmit={e => {
-                                        if (value === "") alert("Input text!");
-                                        value !== "" && editTodo(todo.id, value);
-                                        value !== "" && setIsEdit("");
-                                        value !== "" && setValue("");
+                                        if (value === "") {
+                                            alert("Input text!")
+                                        } else {
+                                            editTodo(todo.id, value)
+                                        }
                                     }}
                                 >
                                     <input 
@@ -79,17 +68,18 @@ export default function Todos({ todos, setTodos, filter, doneTodosCount, setDone
                                         src={process.env.PUBLIC_URL + "/Img/done.svg"}
                                         alt="Save" 
                                         onClick={e => {
-                                            if (value === "") alert("Input text!");
-                                            value !== "" && editTodo(todo.id, value);
-                                            value !== "" && setIsEdit("");
-                                            value !== "" && setValue("");
+                                            if (value === "") {
+                                                alert("Input text!")
+                                            } else {
+                                                editTodo(todo.id, value)
+                                            }
                                         }}
                                         />
                                         <img 
                                         src={process.env.PUBLIC_URL + "/Img/cross.svg"}
                                         alt="Cancel" 
                                         onClick={e => {
-                                            setIsEdit("");
+                                            setEditedTodoId("");
                                             setValue("");
                                         }}
                                         />
@@ -101,8 +91,7 @@ export default function Todos({ todos, setTodos, filter, doneTodosCount, setDone
                                         <input 
                                             type="checkbox" 
                                             onClick={() => {
-                                                if (todo.read) alert("Readonly!");
-                                                !todo.read && toggleTodo(todo.id);
+                                                toggleTodo(todo.id);
                                             }}
                                             checked={todo.done}
                                             />
@@ -113,16 +102,14 @@ export default function Todos({ todos, setTodos, filter, doneTodosCount, setDone
                                         src={process.env.PUBLIC_URL + "/Img/edit.svg"}
                                         alt="Edit" 
                                         onClick={e => {
-                                            if (todo.read) alert("Readonly!");
-                                            !todo.read && setIsEdit(todo.id)
+                                            setEditedTodoId(todo.id)
                                         }}
                                         />
                                         <img 
                                         src={process.env.PUBLIC_URL + "/Img/delete.svg"}
                                         alt="Delete" 
                                         onClick={e => {
-                                            if (todo.read) alert("Readonly!");
-                                            !todo.read && deleteTodo(todo.id)
+                                            deleteTodo(todo.id)
                                         }}
                                         />
                                     </div>

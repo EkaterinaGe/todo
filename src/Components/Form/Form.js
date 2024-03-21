@@ -1,18 +1,13 @@
 import './Form.css';
-import {useState, useEffect} from 'react';
+import {useState} from 'react';
 import { v4 as uuidv4 } from "uuid";
 
-export default function Form({todos, setTodos, allTodosCount, setAllTodosCount}) {
+export default function Form({todos, setTodos}) {
     const [value, setValue] = useState('');
-
-    useEffect(() => {
-        localStorage.setItem('todos', JSON.stringify(todos))
-    })
 
     const addTodo = (value) => {
         if (value.trim()) {
-            setTodos([...todos, {id: uuidv4(), text: value, done: false, read: false}]);
-            setAllTodosCount(allTodosCount + 1)
+            setTodos([...todos, {id: uuidv4(), text: value, done: false}]);
         } else {
             alert('Input text!')
         }
