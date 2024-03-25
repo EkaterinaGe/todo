@@ -95,7 +95,7 @@ export default function Todos({ todos, setTodos, filter }) {
                                             }}
                                             checked={todo.done}
                                             />
-                                        {todo.text}
+                                        <div>{todo.text}</div>
                                     </div>
                                     <div className="control">
                                         <img 

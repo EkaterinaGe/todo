@@ -33,6 +33,12 @@
     align-items: center;
 }
 
+.todo__text__check div {
+    overflow: hidden;
+    max-width: 470px;
+    text-overflow: ellipsis;
+}
+
 .todo__text__check input {
     appearance: none;
     height: 20px;
